@@ -1,0 +1,21 @@
+---
+type Line = { type?: "input" | "progress", text: string };
+type Props = {
+  lines: Lines[]
+}
+
+const { lines } = Astro.props as Props;
+const id = Math.random().toString(36).substring(2, length + 2);
+---
+
+<div id={id} data-termynal>
+    {lines.map(line => {
+      if (line.type === "input") return <span data-ty="input">{line.content}</span>
+      if (line.type === "progress") return <span data-ty="progress">{line.content}</span>
+      return <span data-ty>{line.content}</span>
+    })
+</div>
+
+<script client:visible>
+  var termynal = new Termynal(`#{id}`, { startDelay: 600 })
+</script>
